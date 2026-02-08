@@ -8,6 +8,35 @@ The script asks the user to input the numbers and the operation to be performed,
 and prints the result to the terminal window.
 
 """
+from prompt_toolkit import prompt
+
+
+def request_santized_number(prompt: str) -> float:
+    """H
+    Function to request and sanitize user input for the operation.
+    Returns:
+    float: The sanitized numeric input by the user.
+    """
+    while True:
+        try:
+            number = float(input(prompt))
+            return number
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+
+def request_santized_operation(prompt: str) -> str:
+    """H
+    Function to request and sanitize user input for the operation.
+    Returns:
+    str: The sanitized operation input by the user.
+    """
+    while True:
+        try:
+            operation = input(prompt).strip().lower()
+            if operation in ["add", "subtract", "multiply", "divide"]:
+                return operation
+        except ValueError:
+            print("Invalid operation. Please enter 'add', 'subtract', 'multiply', or 'divide'.")
 
 def simple_calculator(operation: str, num1: float, num2: float) -> float:
     """
@@ -42,9 +71,9 @@ def main():
     print(f"===== Simple Calculator =====")
 
     # Ask the user for sample input    
-    num1 = float(input("Enter the first number: "))
-    num2 = float(input("Enter the second number: "))
-    operation = input("Enter the operation (add, subtract, multiply, divide): ").strip().lower()
+    num1 = request_santized_number("Enter the first number: ")
+    num2 = request_santized_number("Enter the second number: ")
+    operation = request_santized_operation("Enter the operation (add, subtract, multiply, divide): ")
 
     # Perform the calculation and display the result
     result = simple_calculator(operation, num1, num2)
